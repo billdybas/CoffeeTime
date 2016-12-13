@@ -1,0 +1,15 @@
+#image {
+  left: 50%;
+  position: fixed;
+  top: 50%;
+  -moz-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  -moz-transition: opacity 1200ms ease 800ms;
+  -o-transition: opacity 1200ms ease 800ms;
+  -webkit-transition: opacity 1200ms ease 800ms;
+  transition: opacity 1200ms ease 800ms;
+  z-index: -100;
+}
