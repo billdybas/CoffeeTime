@@ -16,6 +16,16 @@ header > h1 {
   font-size: 3em;
 }
 
+main > h2 {
+  font-size: 2em;
+  text-align: center;
+}
+
+.status {
+  font-size: 5em;
+  text-align: center;
+}
+
 @media screen and (min-width : 768px) {
   main {
     width: 50%;
@@ -28,27 +38,35 @@ header > h1 {
   }
 }
 
-main > h2 {
-  font-size: 2em;
-  text-align: center;
-}
-
 .hours {
+  border-collapse: collapse;
   font-size: 1.25em;
   line-height: 1.5;
   margin: 0 auto;
 }
 
 .hours td:nth-child(odd) {
-  padding-right: 20px;
+  padding: 5px 20px 5px 10px;
 }
 
 .hours td:nth-child(even) {
-  padding-left: 20px;
+  padding: 5px 10px 5px 20px;
 }
 
 .hours td:last-child {
   text-align: right;
+}
+
+.highlight {
+  background-color: rgba(97, 207, 255, 0.75);
+}
+
+.open {
+  color: rgb(165, 214, 167);
+}
+
+.closed {
+  color: rgb(218, 55, 55);
 }
 
 #logo {
