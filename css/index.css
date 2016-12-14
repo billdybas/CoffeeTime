@@ -16,14 +16,24 @@ header > h1 {
   text-align: center;
 }
 
-main > h2 {
+.hoursContainer {
+  position: relative;
+}
+
+.hoursContainer > h2 {
   font-size: 2em;
   text-align: center;
 }
 
 .status {
-  font-size: 5em;
-  text-align: center;
+  position: absolute;
+  right: 10%;
+  top: -25px;
+  -moz-transform: rotate(-15deg);
+  -o-transform: rotate(-15deg);
+  -ms-transform: rotate(-15deg);
+  -webkit-transform: rotate(-15deg);
+  transform: rotate(-15deg);
 }
 
 .hours {
@@ -62,7 +72,7 @@ main > h2 {
   float: none;
   height: 75px;
   margin: 0 auto;
-  padding: 25px;
+  padding: 0;
   width: 75px;
 }
 
@@ -82,6 +92,12 @@ main > h2 {
   z-index: -100;
 }
 
+@media screen and (min-width : 550px) {
+  .status {
+    right: 25%;
+  }
+}
+
 @media screen and (min-width : 768px) {
   main {
     width: 50%;
@@ -91,9 +107,14 @@ main > h2 {
     display: inline-block;
   }
 
+  .status {
+    right: 18%;
+  }
+
   #logo {
     float: left;
     margin: 0;
+    padding: 25px;
   }
 
   .hours td:nth-child(odd) {
@@ -108,5 +129,9 @@ main > h2 {
 @media screen and (min-width : 1224px) {
   main {
     width: 35%;
+  }
+
+  .status {
+    right: 10%;
   }
 }
