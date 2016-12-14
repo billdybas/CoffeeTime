@@ -78,18 +78,28 @@
     }
   }
 
-  function updateImage() {
+  function setImage() {
     $('#image')
       .attr('src', '')
       // Since the image name never changes, add a dummy query parameter which does change to prevent caching
       .attr('src', 'https://library.rit.edu/javawallys/images/webcam.jpg?w=1920&nocache=' + moment().unix());
   }
 
+  function updateImage() {
+    $.ajax({
+      url: 'https://library.rit.edu/javawallys/php/dl-webcam.php',
+      method: 'POST',
+      dataType: 'jsonp' // For CORS
+    }).always(function() {
+      setImage();
+    });
+  }
+
   generateDays();
   highlightDay();
   showStatus();
-  updateImage();
-  setInterval(updateImage, 60000); // 1 Minute
+  setImage();
+  setInterval(updateImage, 120000); // 2 Minutes
 })();
 
 (function(global){
