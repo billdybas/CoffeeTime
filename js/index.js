@@ -78,9 +78,14 @@
     }
   }
 
+  function updateImage() {
+    $('#image').attr('src', '').attr('src', 'https://library.rit.edu/javawallys/images/webcam.jpg?w=1920');
+  }
+
   generateDays();
   highlightDay();
   showStatus();
+  setInterval(updateImage, 60000); // 1 Minute
 })();
 
 (function(global){
