@@ -12,8 +12,8 @@ header > * {
 }
 
 header > h1 {
-  display: inline-block;
   font-size: 3em;
+  text-align: center;
 }
 
 main > h2 {
@@ -26,18 +26,6 @@ main > h2 {
   text-align: center;
 }
 
-@media screen and (min-width : 768px) {
-  main {
-    width: 50%;
-  }
-}
-
-@media screen and (min-width : 1224px) {
-  main {
-    width: 35%;
-  }
-}
-
 .hours {
   border-collapse: collapse;
   font-size: 1.25em;
@@ -46,11 +34,11 @@ main > h2 {
 }
 
 .hours td:nth-child(odd) {
-  padding: 5px 20px 5px 10px;
+  padding: 5px 10px 5px 5px;
 }
 
 .hours td:nth-child(even) {
-  padding: 5px 10px 5px 20px;
+  padding: 5px 5px 5px 10px;
 }
 
 .hours td:last-child {
@@ -70,8 +58,10 @@ main > h2 {
 }
 
 #logo {
-  display: inline-block;
+  display: block;
+  float: none;
   height: 75px;
+  margin: 0 auto;
   padding: 25px;
   width: 75px;
 }
@@ -90,4 +80,33 @@ main > h2 {
   -webkit-transition: opacity 1200ms ease 800ms;
   transition: opacity 1200ms ease 800ms;
   z-index: -100;
+}
+
+@media screen and (min-width : 768px) {
+  main {
+    width: 50%;
+  }
+
+  header > h1 {
+    display: inline-block;
+  }
+
+  #logo {
+    float: left;
+    margin: 0;
+  }
+
+  .hours td:nth-child(odd) {
+    padding: 5px 20px 5px 10px;
+  }
+
+  .hours td:nth-child(even) {
+    padding: 5px 10px 5px 20px;
+  }
+}
+
+@media screen and (min-width : 1224px) {
+  main {
+    width: 35%;
+  }
 }
