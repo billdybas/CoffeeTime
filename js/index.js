@@ -1,4 +1,7 @@
 (function init() {
+  var END_OF_SPRING_SEMESTER = '5-23';
+  var START_OF_FALL_SEMESTER = '8-28';
+
   var daysOfWeek = [
     'Sunday',
     'Monday',
@@ -9,6 +12,18 @@
     'Saturday'
   ];
 
+  /**
+   * Format:
+   *  {
+   *    'Monday': {
+   *      'name': {String} // Display Name
+   *      'open': {String} // 'hh:mm am/pm' or ''
+   *      'close': {String} // 'hh:mm am/pm' or ''
+   *      'customTemplate': {String} // HTML tag to override default section in template
+   *    },
+   *    ...
+   *  }
+   */
   var hours = {
     'Monday': {
       'name': 'Monday',
@@ -33,7 +48,8 @@
     'Friday': {
       'name': 'Friday',
       'open': '7:30 am',
-      'close': '9:00 pm'
+      'close': '9:00 pm',
+      'customTemplate': '<td>7:30 am - &nbsp; 9:00 pm</td>'
     },
     'Saturday': {
       'name': 'Saturday',
@@ -44,7 +60,45 @@
       'name': 'Sunday',
       'open': '11:30 am',
       'close': '9:00 pm'
+    }
+  };
+
+  var summerHours = {
+    'Monday': {
+      'name': 'Monday',
+      'open': '8:30 am',
+      'close': '7:00 pm'
     },
+    'Tuesday': {
+      'name': 'Tuesday',
+      'open': '8:30 am',
+      'close': '7:00 pm'
+    },
+    'Wednesday': {
+      'name': 'Wednesday',
+      'open': '8:30 am',
+      'close': '7:00 pm'
+    },
+    'Thursday': {
+      'name': 'Thursday',
+      'open': '8:30 am',
+      'close': '7:00 pm'
+    },
+    'Friday': {
+      'name': 'Friday',
+      'open': '8:30 am',
+      'close': '4:00 pm'
+    },
+    'Saturday': {
+      'name': 'Saturday',
+      'open': '',
+      'close': ''
+    },
+    'Sunday': {
+      'name': 'Sunday',
+      'open': '',
+      'close': ''
+    }
   };
 
   var STORAGE_AVAILABLE = localStorageAvailable();
@@ -60,14 +114,26 @@
     }
   }
 
-  function generateDays() {
+  function isSummer() {
+    return moment().isBetween(
+      moment(END_OF_SPRING_SEMESTER, 'MM-DD'),
+      moment(START_OF_FALL_SEMESTER, 'MM-DD'),
+      'day', // Comparing the day
+      '[]' // Inclusive
+    );
+  }
+
+  function generateDays(hoursObj) {
     var counter = 1;
     do {
-      var day = hours[daysOfWeek[counter]];
+      var day = hoursObj[daysOfWeek[counter]];
       var template = '' +
         '<tr id="' + day.name + '">' +
           '<td>' + day.name + '</td>' +
-          '<td>' + day.open + ' - ' + (day.name === 'Friday' ? '&nbsp; ' : '') + day.close + '</td>' +
+          (day.open && day.close
+            ? (day.customTemplate ? day.customTemplate : '<td>' + day.open + ' - ' + day.close + '</td>')
+            : '<td>Closed</td>'
+          ) +
         '</tr>';
 
       $('#hours').append(template);
@@ -80,11 +146,13 @@
     $('#' + daysOfWeek[moment().day()]).addClass('highlight');
   }
 
-  function showStatus() {
-    var todaysHours = hours[daysOfWeek[moment().day()]];
+  function showStatus(hoursObj) {
+    var todaysHours = hoursObj[daysOfWeek[moment().day()]];
     var status = $('#status');
 
-    if (moment().isBetween(moment(todaysHours.open, 'HH:mm a'), moment(todaysHours.close, 'HH:mm a'))) {
+    if (todaysHours.open
+      && todaysHours.close
+      && moment().isBetween(moment(todaysHours.open, 'HH:mm a'), moment(todaysHours.close, 'HH:mm a'))) {
       status.html('Open!').removeClass('closed').addClass('open');
     } else {
       status.html('Closed!').removeClass('open').addClass('closed');
@@ -141,9 +209,9 @@
     }
   }
 
-  generateDays();
+  generateDays(isSummer() ? summerHours : hours);
   highlightDay();
-  showStatus();
+  showStatus(isSummer() ? summerHours : hours);
   updateImage(true);
   setInterval(updateImage, 120000); // 2 Minutes
 })();
