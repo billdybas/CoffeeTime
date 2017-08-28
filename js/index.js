@@ -119,7 +119,7 @@
       moment(END_OF_SPRING_SEMESTER, 'MM-DD'),
       moment(START_OF_FALL_SEMESTER, 'MM-DD'),
       'day', // Comparing the day
-      '[]' // Inclusive
+      '()' // Not Inclusive
     );
   }
 
