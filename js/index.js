@@ -173,6 +173,8 @@
       // won't update the image and overload the webcam.
       localStorage.setItem('last_update', timestamp);
     }
+
+    highlightDay();
   }
 
   function fetchImage() {
