@@ -174,6 +174,8 @@
       localStorage.setItem('last_update', timestamp);
     }
 
+    //In the case of a new day, update the day to be highlighted,
+    //this allows for the correct day to be highlighted without needing to be refreshed
     highlightDay();
   }
 
