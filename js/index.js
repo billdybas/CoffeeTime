@@ -174,8 +174,13 @@
       localStorage.setItem('last_update', timestamp);
     }
 
-    //In the case of a new day, update the day to be highlighted,
-    //this allows for the correct day to be highlighted without needing to be refreshed
+    // There is the possibility that the day will change while
+    // one is viewing this page, so the highlighted day should be
+    // updated while they're on the site - they shouldn't have to refresh
+    // the page. Instead of continuously polling whether to update
+    // the highlighted day, having it refresh every time the image refreshes
+    // is good enough. Most of the time this will be a no-op, but will change
+    // the highlighted day in the odd chance someone is up late eagerly waiting for Java's to open.
     highlightDay();
   }
 
