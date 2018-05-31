@@ -67,22 +67,22 @@
     'Monday': {
       'name': 'Monday',
       'open': '8:30 am',
-      'close': '5:00 pm'
+      'close': '4:00 pm'
     },
     'Tuesday': {
       'name': 'Tuesday',
       'open': '8:30 am',
-      'close': '5:00 pm'
+      'close': '4:00 pm'
     },
     'Wednesday': {
       'name': 'Wednesday',
       'open': '8:30 am',
-      'close': '5:00 pm'
+      'close': '4:00 pm'
     },
     'Thursday': {
       'name': 'Thursday',
       'open': '8:30 am',
-      'close': '5:00 pm'
+      'close': '4:00 pm'
     },
     'Friday': {
       'name': 'Friday',
