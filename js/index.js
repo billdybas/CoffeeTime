@@ -101,19 +101,6 @@
     }
   };
 
-  var STORAGE_AVAILABLE = localStorageAvailable();
-
-  function localStorageAvailable() {
-    try {
-      var val = '__storage_test__';
-      localStorage.setItem(val, val);
-      localStorage.removeItem(val);
-      return true;
-    } catch(e) {
-      return false;
-    }
-  }
-
   function isSummer() {
     return moment().isBetween(
       moment(END_OF_SPRING_SEMESTER, 'MM-DD'),
@@ -165,14 +152,7 @@
     $('#image')
       .attr('src', '')
       // Since the image name never changes, add a dummy query parameter which does change to prevent caching
-      .attr('src', 'https://library.rit.edu/javawallys/images/webcam.jpg?w=1920&nocache=' + timestamp);
-
-    if (STORAGE_AVAILABLE) {
-      // Keep track of the last image update so that the image
-      // can be fresh upon first page visit but refreshing the page
-      // won't update the image and overload the webcam.
-      localStorage.setItem('last_update', timestamp);
-    }
+      .attr('src', 'https://library.rit.edu/sites/library.rit.edu.javawallys/files/webcam-raw.jpg?w=1920&nocache=' + timestamp);
 
     // There is the possibility that the day will change while
     // one is viewing this page, so the highlighted day should be
@@ -184,45 +164,11 @@
     highlightDay();
   }
 
-  function fetchImage() {
-    $.ajax({
-      url: 'https://library.rit.edu/javawallys/php/dl-webcam.php',
-      method: 'POST',
-      dataType: 'jsonp' // For CORS
-    }).always(function() {
-      setImage();
-    });
-  }
-
-  function updateImage(firstVisit) {
-    firstVisit = !!firstVisit; // Make either 'true' or 'false'
-
-    if (STORAGE_AVAILABLE) {
-      var lastTimestamp = localStorage.getItem('last_update');
-      // User doesn't have the localStorage value set
-      // or 1 minute has passed
-      if (!lastTimestamp || moment().diff(moment.unix(lastTimestamp), 'seconds') > 60) {
-        fetchImage();
-      } else {
-        setImage(); // 1 minutes hasn't passed; use the most current image
-      }
-    } else {
-      // If localStorage is not available, retain previous
-      // webcam overload-prevention behavior. Don't update the image
-      // if it is the first visit; wait 2 minutes to update.
-      if (firstVisit) {
-        setImage();
-      } else {
-        fetchImage();
-      }
-    }
-  }
-
   generateDays(isSummer() ? summerHours : hours);
   highlightDay();
   showStatus(isSummer() ? summerHours : hours);
-  updateImage(true);
-  setInterval(updateImage, 120000); // 2 Minutes
+  setImage();
+  setInterval(setImage, 120000); // 2 Minutes
 })();
 
 (function(global){
